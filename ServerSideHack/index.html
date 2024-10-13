@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="icon.ico" type="image/png">
+    <title>Server Side Hack</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-mint: #3cffd0;
+            --dark-bg: #0a0a0a;
+            --text-color: #ffffff;
+            --highlight-green: #55ff55;
+            --highlight-brown: #a0522d;
+            --highlight-orange: #ff9933;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        #particles-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Press Start 2P', sans-serif;
+            font-size: 2rem;
+            color: var(--neon-mint);
+            text-shadow: 0 0 10px var(--neon-mint);
+            position: relative;
+        }
+
+        .beta-tag {
+            font-size: 1rem;
+            color: var(--highlight-orange);
+            font-weight: bold;
+            margin-left: 10px;
+            padding: 5px;
+            border: 1px solid var(--highlight-orange);
+            border-radius: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--highlight-green);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(60, 255, 208, 0.3), rgba(85, 255, 85, 0.3));
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-family: 'Press Start 2P', sans-serif;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--highlight-green), var(--highlight-brown));
+            color: var(--text-color);
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(60, 255, 208, 0.5), 0 6px 6px rgba(85, 255, 85, 0.5);
+        }
+
+        .features {
+            padding: 100px 0;
+        }
+
+        .features h2 {
+            font-family: 'Press Start 2P', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--neon-mint);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.05) rotate(2deg);
+            box-shadow: 0 15px 40px rgba(60, 255, 208, 0.4), 0 10px 15px rgba(85, 255, 85, 0.4);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-card h3 {
+            font-family: 'Press Start 2P', sans-serif;
+            color: var(--highlight-green);
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--text-color);
+        }
+
+        .video-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .video-section h2 {
+            font-family: 'Press Start 2P', sans-serif;
+            font-size: 2.5rem;
+            color: var(--highlight-green);
+            margin-bottom: 50px;
+        }
+
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .video-container video {
+            width: 80%;
+            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .instructions-section {
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .instructions-section h2 {
+            font-family: 'Press Start 2P', sans-serif;
+            font-size: 2.5rem;
+            color: var(--highlight-green);
+            margin-bottom: 30px;
+        }
+
+        .instructions-section p {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .developer-section, .license-section {
+            padding: 50px 0;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .developer-section h2, .license-section h2 {
+            font-family: 'Press Start 2P', sans-serif;
+            color: var(--highlight-green);
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background: rgba(10, 10, 10, 0.8);
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 2rem;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--highlight-green);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            .video-container video {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-bg"></div>
+    
+    <header>
+        <nav class="container">
+            <div class="logo">SSH <span class="beta-tag">BETA</span></div>
+            <div class="nav-links">
+                <a href="#features">기능</a>
+                <a href="#videos">데모 비디오</a>
+                <a href="#license">라이선스</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Server Side Hack</h1>
+            <p>서버에서 다 같이 즐길수 있는 최고의 마인크래프트 핵</p>
+            <div class="hero-buttons">
+                <a href="https://www.mediafire.com/folder/t4kzv09261kli/ServerPack" class="cta-button">서버팩 다운로드</a>
+				<a href="https://www.mediafire.com/folder/r1ooeq0jld55b/Plugins" class="cta-button">플러그인 다운로드</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2>강력한 기능</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>스피드 핵</h3>
+                    <p>플레이어의 이동 속도를 크게 향상시킵니다. 게임에서 더 빠르게 움직여 상대를 압도하세요.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>채굴 가속 핵</h3>
+                    <p>모든 자원을 두 배 빠르게 채굴할 수 있어 게임 속도가 대폭 향상됩니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>무적 핵</h3>
+                    <p>무적 모드로 모든 적의 공격을 막아내고 게임에서 더 오래 살아남을 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>점프 핵</h3>
+                    <p>플레이어의 점프 높이를 높여 게임에서 더 많은 곳을 탐험할 수 있게 합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>엑스레이</h3>
+                    <p>벽 너머의 아이템과 적을 볼 수 있어 더 유리한 위치에서 게임을 플레이할 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>킬 아우라</h3>
+                    <p>근처의 적을 자동으로 공격하여 빠르게 제거합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>오토 보우</h3>
+                    <p>자동으로 적에게 정확하게 화살을 발사하여 원거리 전투에서 큰 이점을 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>안티 넉백</h3>
+                    <p>적의 공격으로 인한 넉백 효과를 방지하여 안정적인 위치에서 전투를 이어갈 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- 여기에 데모 영상 넣으면됩니다 -->
+    <section id="videos" class="video-section">
+        <div class="container">
+            <h2>데모 비디오</h2>
+			<p><code>Shift + F</code> 로 간단하게 실행하기</p><br></br>
+            <div class="video-container">
+                <video autoplay loop muted>
+                    <source src="speed.mp4" type="video/mp4">
+                    이 브라우저는 비디오 태그를 지원하지 않습니다.
+                </video>
+                <video autoplay loop muted>
+                    <source src="jump.mp4" type="video/mp4">
+                    이 브라우저는 비디오 태그를 지원하지 않습니다.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <section id="license" class="license-section">
+        <h2>라이선스</h2>
+        <p>이 도구를 사용하여 발생할 수 있는 모든 손해에 대해 개발자는 책임을 지지 않습니다. <br>이 소프트웨어를 사용할 경우, 사용자 본인이 모든 책임을 지는 것에 동의하는 것입니다.</p><br></br>
+		<a href="terms.html" class="cta-button">자세히 알아보기</a>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Server Side Hack. All rights reserved</p>
+            <div class="social-links">
+                <a href="https://www.youtube.com/@RabbitMint" target="_blank"><i class="fab fa-youtube"></i></a> 
+                <a href="https://discord.gg/UDKfdgXfgj" target="_blank"><i class="fab fa-discord"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script>
+        // 염병할 스크립트 여기에 넣으샘 
+    </script>
+</body>
+</html>

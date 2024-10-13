@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rabbit Mint</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f0f8f8;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: #333333;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.5s ease;
+        }
+
+        nav.scrolled {
+            background-color: rgba(51, 51, 51, 0.8); /* Transparent effect when scrolled */
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo img {
+            height: 40px;
+            width: 40px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .nav-logo a {
+            color: #fff;
+            font-size: 1.62em;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 18px;
+            font-size: 1.08em;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00c78a;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 108px 18px;
+            background-color: #d7f8d7;
+            height: 60vh;
+        }
+
+        .hero-title {
+            font-size: 3.15em;
+            font-weight: bold;
+            margin-bottom: 18px;
+            color: #2f3a4a;
+        }
+
+        .hero-description {
+            max-width: 600px;
+            font-size: 1.17em;
+            color: #555;
+            margin-bottom: 36px;
+        }
+
+        .cta-button {
+            background-color: #00c78a;
+            color: white;
+            padding: 13.5px 27px;
+            font-size: 1.08em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #00a977;
+        }
+
+        /* Section Headers */
+        section h2 {
+            font-size: 2.25em;
+            margin: 54px 0 27px;
+            color: #2f3a4a;
+            text-align: center;
+        }
+
+        /* Connect Section */
+        .connect-section {
+            text-align: center;
+            padding: 45px 0;
+            background-color: #eef7f7;
+        }
+
+        .profile-section {
+            display: flex;
+            justify-content: center;
+            gap: 45px;
+            flex-wrap: wrap; /* Added for mobile */
+        }
+
+        .profile-item {
+            text-align: center;
+        }
+
+        .profile-item img {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-item img:hover {
+            transform: scale(1.1);
+        }
+
+        .profile-item span {
+            margin-top: 9px;
+            display: block;
+            font-size: 1.08em;
+            color: #333;
+        }
+
+        /* Download Section */
+        .download-section {
+            padding: 45px;
+            text-align: center;
+            background-color: #f0f4f5;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+            flex-wrap: wrap; /* Added for mobile */
+        }
+
+        .logo-item {
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 18px;
+        }
+
+        .logo-item img {
+            width: 135px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .description-item {
+            margin-top: 9px;
+            font-size: 1em;
+            color: #333;
+        }
+
+        /* License Section */
+        .license-section {
+            padding: 45px;
+            background-color: #d7f8d7;
+        }
+
+        .content-text {
+            max-width: 700px;
+            margin: auto;
+            font-size: 1.08em;
+            line-height: 1.62;
+            color: #444;
+        }
+
+        /* Contact Section (inside Footer) */
+        footer {
+            background-color: #333333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: auto;
+        }
+
+        .footer-columns {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap; /* Added for mobile */
+            padding-bottom: 10px;
+            font-size: 0.8em; /* Reduced font size */
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            padding: 10px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .contact-item {
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-item img {
+            width: 25px;
+            margin-right: 8px;
+        }
+
+        .contact-item a {
+            color: #00c78a;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 10px;
+            font-size: 0.75em;
+        }
+
+        footer a {
+            color: #00c78a;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                padding: 10px 20px;
+            }
+
+            .hero-title {
+                font-size: 2em;
+            }
+
+            .hero-description {
+                font-size: 1em;
+            }
+
+            .cta-button {
+                font-size: 1em;
+                padding: 10px 20px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                margin-top: 10px;
+            }
+
+            .nav-links a {
+                margin: 10px 0;
+            }
+
+            .footer-columns {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-column {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-logo">
+            <img src="logo.png" alt="Minrabbit Logo">
+            <a href="#home">RabbitMint</a>
+        </div>
+        <div class="nav-links">
+            <a href="#home">홈</a>
+            <a href="#download">다운로드</a>
+            <a href="#license">라이선스</a>
+            <a href="#contact">문의하기</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <h1 class="hero-title">민트토끼</h1>
+        <p class="hero-description">인터넷 방송인이자 마인크래프트 플러그인 개발자인 민트토끼가 직접 제작한 다양한 플러그인 및 툴입니다. 라이선스를 확인하시고 즐겁게 사용해 주세요!</p>
+        <button class="cta-button" onclick="document.getElementById('download').scrollIntoView({ behavior: 'smooth' });">다운로드</button>
+    </section>
+
+    <!-- Connect Section -->
+    <section class="connect-section">
+        <h2>방송</h2>
+        <div class="profile-section">
+            <div class="profile-item">
+                <img src="aftv.png" alt="Afreeca TV Logo" onclick="window.open('https://bj.afreecatv.com/vlrzmf915', '_blank')">
+                <span>아프리카 TV</span>
+            </div>
+            <div class="profile-item">
+                <img src="chzzk.png" alt="Chizijik Logo" onclick="window.open('https://chzzk.naver.com/live/f87ac4d543953c712b6dad63eebf848c', '_blank')">
+                <span>치지직</span>
+            </div>
+            <div class="profile-item">
+                <img src="yt.png" alt="YouTube Logo" onclick="window.open('https://youtube.com/@rabbitmint', '_blank')">
+                <span>유튜브</span>
+            </div>
+            <div class="profile-item">
+                <img src="discord_logo.png" alt="Discord Logo" onclick="window.open('https://discord.gg/UDKfdgXfgj', '_blank')">
+                <span>디스코드</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="download-section" id="download">
+        <h2>다운로드 하기</h2>
+        <div class="logo-container">
+            <div class="logo-item" onclick="window.open('serversidehack/index.html', '_blank')">
+                <img src="ssh_logo.png" alt="SSH Logo">
+                <div class="description-item">Server Side Hack</div>
+            </div>
+            <div class="logo-item" onclick="window.open('wng.html', '_blank')">
+                <img src="pim_logo.png" alt="Minecraft PUBG Logo">
+                <div class="description-item">Minecraft PUBG</div>
+            </div>
+            <div class="logo-item" onclick="window.open('wng.html', '_blank')">
+                <img src="mintcl_logo.png" alt="Mint Client Logo">
+                <div class="description-item">Rabbit Mint Client</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- License Section -->
+    <section class="license-section" id="license">
+        <h2>라이선스 정보</h2>
+        <div class="content-text">
+            <!-- Minecraft EULA Section -->
+            <div class="license-block">
+                <h3>Minecraft EULA (최종 사용자 라이선스 계약)</h3>
+                <ul>
+                    <li><strong>상업적 사용 금지:</strong> Minecraft를 상업적으로 사용하는 것은 허용되지 않으며, 이를 위반할 시 법적 조치가 취해질 수 있습니다.</li>
+                    <li><strong>서버 및 모드 사용:</strong> 서버에서 Minecraft를 플레이하고, 모드를 사용할 수 있으나, 비상업적인 용도에 한정됩니다. 수익 창출 시 Mojang의 정책을 따르세요.</li>
+                    <li><strong>게임 수정:</strong> 게임을 수정하거나 확장하는 것은 가능하지만, 수정된 버전을 판매하는 것은 EULA 위반입니다.</li>
+                    <li><strong>서버 광고:</strong> 서버 광고를 통한 수익 창출은 가능하지만, 게임 플레이의 공정성을 해쳐서는 안 됩니다.</li>
+                </ul>
+            </div>
+            <br>
+            <!-- GNU GPL Section -->
+            <div class="license-block">
+                <h3>GNU General Public License v3 (GNU GPL v3)</h3>
+                <ul>
+                    <li><strong>자유 소프트웨어 사용:</strong> 누구나 이 소프트웨어를 무료로 사용, 수정, 배포할 수 있으며, 소스 코드 접근이 가능합니다.</li>
+                    <li><strong>동일한 라이선스 적용:</strong> 수정된 소프트웨어도 동일한 GNU GPL v3 라이선스 조건 하에 배포되어야 합니다.</li>
+                    <li><strong>특허 보호:</strong> 이 라이선스는 사용자가 특허 문제로 인해 소송을 당하지 않도록 보호합니다.</li>
+                    <li><strong>소스 코드 접근:</strong> 사용자는 소스 코드에 접근해 이를 수정할 수 있으며, 수정된 버전도 공개해야 합니다.</li>
+                </ul>
+            </div>
+
+            <p>
+                이 두 라이선스를 준수하여 Minecraft와 Rabbit Mint 플러그인을 공정하고 적법하게 사용하세요.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+	    <section class="contact-section" id="contact">
+        <div class="footer-columns">
+            <div class="footer-column">
+                <h3>개발자</h3>
+                <div class="contact-item">
+                    <img src="discord_logo.png" alt="Discord Logo">
+                    <a href="https://discord.gg/UDKfdgXfgj" target="_blank">Discord Server</a>
+                </div>
+                <div class="contact-item">
+                    <img src="discord_logo.png" alt="Discord Logo">
+                    <a href="https://discord.com/users/chzzkafyou_rabbitmint" target="_blank">@chzzkafyou_rabbitmint</a>
+                </div>
+                <div class="contact-item">
+                    <img src="github_logo.png" alt="Github Logo">
+                    <a href="https://github.com/rabbitmint" target="_blank">Github</a>
+                </div>
+                <div class="contact-item">
+                    <img src="youtube_logo.svg" alt="YouTube Logo">
+                    <a href="https://www.youtube.com/@RabbitMint" target="_blank">YouTube</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>부개발자</h3>
+                <div class="contact-item">
+                    <img src="discord_logo.png" alt="Discord Logo">
+                    <a href="https://discord.com/users/slvxey._7" target="_blank">@slvxey._7</a>
+                </div>
+                <div class="contact-item">
+                    <img src="discord_logo.png" alt="Discord Logo">
+                    <a href="https://discord.com/users/soilpc" target="_blank">@soilpc</a>
+                </div>
+                <div class="contact-item">
+                    <img src="discord_logo.png" alt="Discord Logo">
+                    <a href="https://discord.com/users/spc_admin" target="_blank">@spc_admin</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>서버 관리자</h3>
+                <div class="contact-item">
+                    <img src="discord_logo.png" alt="Discord Logo">
+                    <a href="https://discord.com/users/soilpc" target="_blank">@soilpc</a>
+                </div>
+                <div class="contact-item">
+                    <img src="discord_logo.png" alt="Discord Logo">
+                    <a href="https://discord.com/users/spc_admin" target="_blank">@spc_admin</a>
+                </div>
+                <div class="contact-item">
+                    <img src="discord_logo.png" alt="Discord Logo">
+                    <a href="https://discord.com/users/rx9y7n9r" target="_blank">@rx9y7n9r</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rabbit Mint - All rights reserved ㅣ 개발: Rabbitmint ㅣ 제공: Slvxey._7 ㅣ 제공2: SPCrequest ㅣ <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU GENERAL PUBLIC LICENSE version 3</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
